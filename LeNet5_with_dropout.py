@@ -58,7 +58,7 @@ class LeNet5_with_dropout(nn.Module):
                        self.S4_layer, act, self.flatten,
                        self.F5_layer, act,
                        self.F6_layer, act,
-                       self,F7_layer, act,
+                       self.F7_layer, act,
                        self.output]
         if (dropout == 3):
             # create a list of fucntion order
@@ -69,7 +69,7 @@ class LeNet5_with_dropout(nn.Module):
                        self.F5_layer, act,
                        self.F55_layer, act,
                        self.F6_layer, act,
-                       self,F7_layer, act,
+                       self.F7_layer, act,
                        self.output]
 
     def flatten(self, T):

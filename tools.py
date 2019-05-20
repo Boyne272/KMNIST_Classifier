@@ -138,16 +138,16 @@ class train_wrapper():
         # set the model to not expect a backward pass
         self.model.eval()
         
-        ys, y_preds = [], []
+        y_preds = []
         
         # for every test batch
-        for X, y in self.test_loader:
+        for X in self.test_loader:
         
             # tell the optimizer not to store gradients
             with torch.no_grad():
                 
                 # put the samples on the device
-                X, y = X.to(self.device), y.to(self.device)
+                X = X.to(self.device)
                 
                 # find the model output with current parameters
                 output = self.model(X)
@@ -156,11 +156,10 @@ class train_wrapper():
                 y_pred = F.log_softmax(output, dim=1).max(1)[1]
                 
                 # store the predicted and actual outcomes
-                ys.append(y.cpu().numpy())
                 y_preds.append(y_pred.cpu().numpy())
 
         # return the list of predictions and actual targets
-        return np.concatenate(y_preds, 0),  np.concatenate(ys, 0)
+        return np.concatenate(y_preds, 0)
     
     
     def train_model(self, epochs):
@@ -208,3 +207,20 @@ class train_wrapper():
                         for t in self.model.parameters()])
         print("Number of model Parameters: ", n_params)
         return n_params
+
+
+
+def save_csv(data, file, path='/', header="Id,Category"):
+    
+    f = open(path + file + ".csv", 'w')
+    assert (not f.closed), "could not open file"
+    
+    f.write(header + "\n")
+    for i, d in enumerate(data):
+        d = int(d)
+        f.write(str(i) + "," + str(d) + "\n")
+    
+    f.close()
+    print("successfully saved in " + path + file + ".csv")
+    return 
+

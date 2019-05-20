@@ -15,7 +15,7 @@ class LeNet5_with_dropout(nn.Module):
         "setup the neural network"
 
         # initalise
-        super(LeNet5, self).__init__()
+        super(LeNet5_with_dropout, self).__init__()
 
         # general params
         kernal = 5

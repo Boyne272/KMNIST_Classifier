@@ -30,10 +30,10 @@ class LeNet5_with_dropout(nn.Module):
 
         self.F5_layer = nn.Linear(16*5*5, 120, bias=bias)
 
-        self.F55_layer = nn.dropout()
+        self.F55_layer = nn.Dropout()
 
         self.F6_layer = nn.Linear(120,84, bias=bias)
-        self.F7_layer = nn.dropout()
+        self.F7_layer = nn.Dropout()
 
         self.output = nn.Linear(84, 10, bias=bias)
 

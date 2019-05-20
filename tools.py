@@ -1,6 +1,7 @@
 # imports
 from livelossplot import PlotLosses
 from sklearn.metrics import accuracy_score
+from torch.utils.data import Dataset 
 import numpy as np
 import random
 import torch
@@ -33,11 +34,11 @@ class train_wrapper():
     """
     
     def __init__(self, model, optimizer, train_loader, validate_loader,
-                 test_loader, criterion=nn.CrossEntropyLoss(), device="cpu"):
+				 criterion=nn.CrossEntropyLoss(), device="cpu", test_transform=False):
         "Stores the parameters on the class instance for later methods"
         
         for arg in ["model", "optimizer", "train_loader", "validate_loader",
-                    "test_loader", "criterion", "device"]:
+					"criterion", "device", "test_transform"]:
             exec("self." + arg + "=" + arg)
         return
     
@@ -129,12 +130,16 @@ class train_wrapper():
         return validation_loss/N_samp, validation_accuracy/N_samp
     
     
-    def evaluate(self):
+    def evaluate(self, test_data, prob_output=True):
         """
         Find the prediction of the current model parameters with the test
         data set and return both the predicted and actual labels
         """
         
+		# normalise the test data with validates transformation
+		if self.test_transform:
+			test_data = self.test_transform(test_data)
+		
         # set the model to not expect a backward pass
         self.model.eval()
         
@@ -153,7 +158,8 @@ class train_wrapper():
                 output = self.model(X)
                 
                 # find the predictions from this output
-                y_pred = F.log_softmax(output, dim=1).max(1)[1]
+				if not prob_output:
+					y_pred = F.log_softmax(output, dim=1).max(1)[1]
                 
                 # store the predicted and actual outcomes
                 y_preds.append(y_pred.cpu().numpy())
@@ -223,4 +229,28 @@ def save_csv(data, file, path='/', header="Id,Category"):
     f.close()
     print("successfully saved in " + path + file + ".csv")
     return 
+	
+
+class CustomImageTensorDataset(Dataset):
+    def __init__(self, data, targets, transform=None):
+        """
+        Args:
+            data (Tensor): A tensor containing the data e.g. images
+            targets (Tensor): A tensor containing all the labels
+            transform (callable, optional): Optional transform to be applied
+                on a sample.
+        """
+        self.data = data
+        self.targets = targets
+        self.transform = transform
+
+    def __len__(self):
+        return len(self.data)
+
+    def __getitem__(self, idx):
+        sample, label = self.data[idx], self.targets[idx]
+        if self.transform:
+            sample = self.transform(sample)
+
+        return sample, label
 

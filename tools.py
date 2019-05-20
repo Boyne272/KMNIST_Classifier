@@ -23,7 +23,7 @@ def set_seed(seed):
     torch.backends.cudnn.enabled   = False
 
     return True
-	
+
 # define the training wrapper
 class train_wrapper():
     """
@@ -34,11 +34,11 @@ class train_wrapper():
     """
     
     def __init__(self, model, optimizer, train_loader, validate_loader,
-				 criterion=nn.CrossEntropyLoss(), device="cpu", test_transform=False):
+        criterion=nn.CrossEntropyLoss(), device="cpu", test_transform=False):
         "Stores the parameters on the class instance for later methods"
         
         for arg in ["model", "optimizer", "train_loader", "validate_loader",
-					"criterion", "device", "test_transform"]:
+        "criterion", "device", "test_transform"]:
             exec("self." + arg + "=" + arg)
         return
     
@@ -136,10 +136,10 @@ class train_wrapper():
         data set and return both the predicted and actual labels
         """
         
-	# normalise the test data with validates transformation
-	if self.test_transform:
-	    test_data = self.test_transform(test_data)
-		
+    # normalise the test data with validates transformation
+        if self.test_transform:
+            test_data = self.test_transform(test_data)
+
         # set the model to not expect a backward pass
         self.model.eval()
         
@@ -159,7 +159,7 @@ class train_wrapper():
                 
                 # find the predictions from this output
                 if not prob_output:
-		    y_pred = F.log_softmax(output, dim=1).max(1)[1]
+                    y_pred = F.log_softmax(output, dim=1).max(1)[1]
                 
                 # store the predicted and actual outcomes
                 y_preds.append(y_pred.cpu().numpy())

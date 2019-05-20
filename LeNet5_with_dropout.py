@@ -11,7 +11,7 @@ class LeNet5_with_dropout(nn.Module):
     input as expected from the CIFAR10 dataset
     """
 
-    def __init__(self, bias=True, dropout=1):
+    def __init__(self, bias=True, dropout=[]):
         "setup the neural network"
 
         # initalise
@@ -40,37 +40,19 @@ class LeNet5_with_dropout(nn.Module):
         # create the activation function
         act = nn.ReLU()
 
-        if(dropout == 1):
-            # create a list of fucntion order
-            self.layers = [self.C1_layer, act,
-                       self.S2_layer, act,
-                       self.C3_layer, act,
-                       self.S4_layer, act, self.flatten,
-                       self.F5_layer, act,
-                       self.F55_layer, act,
-                       self.F6_layer, act,
-                       self.output]
-        if(dropout == 2):
-            # create a list of fucntion order
-            self.layers = [self.C1_layer, act,
-                       self.S2_layer, act,
-                       self.C3_layer, act,
-                       self.S4_layer, act, self.flatten,
-                       self.F5_layer, act,
-                       self.F6_layer, act,
-                       self.F7_layer, act,
-                       self.output]
-        if (dropout == 3):
-            # create a list of fucntion order
-            self.layers = [self.C1_layer, act,
-                       self.S2_layer, act,
-                       self.C3_layer, act,
-                       self.S4_layer, act, self.flatten,
-                       self.F5_layer, act,
-                       self.F55_layer, act,
-                       self.F6_layer, act,
-                       self.F7_layer, act,
-                       self.output]
+        self.layers = [self.C1_layer, act,
+                   self.S2_layer, act,
+                   self.C3_layer, act,
+                   self.S4_layer, act, self.flatten,
+                   self.F5_layer, act,
+                   self.F55_layer, act,
+                   self.F6_layer, act,
+                   self.output]
+
+        insert_pts = [2, 4, 6, 8, 11, 13]
+
+        for d in dropout[::-1]:
+            self.layers.insert(insert_pts[d], nn.dropout())
 
     def flatten(self, T):
         "flatten the image for the fully connected layers"

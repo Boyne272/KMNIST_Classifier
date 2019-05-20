@@ -139,7 +139,7 @@ class train_wrapper():
 	# normalise the test data with validates transformation
         if self.test_transform:
 	    test_data = self.test_transform(test_data)
-		
+	
         # set the model to not expect a backward pass
         self.model.eval()
         
@@ -159,8 +159,8 @@ class train_wrapper():
                 
                 # find the predictions from this output
                 if not prob_output:
-		    y_pred = F.log_softmax(output, dim=1).max(1)[1]
-                
+			y_pred = F.log_softmax(output, dim=1).max(1)[1]
+
                 # store the predicted and actual outcomes
                 y_preds.append(y_pred.cpu().numpy())
 

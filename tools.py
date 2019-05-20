@@ -158,7 +158,7 @@ class train_wrapper():
                 output = self.model(X)
                 
                 # find the predictions from this output
-		if not prob_output:
+                if not prob_output:
 		    y_pred = F.log_softmax(output, dim=1).max(1)[1]
                 
                 # store the predicted and actual outcomes

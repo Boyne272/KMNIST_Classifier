@@ -4,20 +4,18 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-
-
-# LeNet5
-class LeNet5(nn.Module):
+# LeNet5 with dropout
+class LeNet5_with_dropout(nn.Module):
     """
     The LeNet5 neural network architecture for a 3 channel 32x32
     input as expected from the CIFAR10 dataset
     """
 
-    def __init__(self, bias=True):
+    def __init__(self, bias=True, dropout=1):
         "setup the neural network"
 
         # initalise
-        super(LeNet5, self).__init__()
+        super(LeNet5_with_dropout, self).__init__()
 
         # general params
         kernal = 5
@@ -31,19 +29,47 @@ class LeNet5(nn.Module):
         self.S4_layer = nn.MaxPool2d(kernel_size=2, stride=2)
 
         self.F5_layer = nn.Linear(16*5*5, 120, bias=bias)
+
+        self.F55_layer = nn.dropout()
+
         self.F6_layer = nn.Linear(120,84, bias=bias)
+        self.F7_layer = nn.dropout()
+
         self.output = nn.Linear(84, 10, bias=bias)
 
         # create the activation function
         act = nn.ReLU()
 
-        # create a list of fucntion order
-        self.layers = [self.C1_layer, act,
+        if(dropout == 1):
+            # create a list of fucntion order
+            self.layers = [self.C1_layer, act,
+                       self.S2_layer, act,
+                       self.C3_layer, act,
+                       self.S4_layer, act, self.flatten,
+                       self.F5_layer, act,
+                       self.F55_layer, act,
+                       self.F6_layer, act,
+                       self.output]
+        if(dropout == 2):
+            # create a list of fucntion order
+            self.layers = [self.C1_layer, act,
                        self.S2_layer, act,
                        self.C3_layer, act,
                        self.S4_layer, act, self.flatten,
                        self.F5_layer, act,
                        self.F6_layer, act,
+                       self,F7_layer, act,
+                       self.output]
+        if (dropout == 3):
+            # create a list of fucntion order
+            self.layers = [self.C1_layer, act,
+                       self.S2_layer, act,
+                       self.C3_layer, act,
+                       self.S4_layer, act, self.flatten,
+                       self.F5_layer, act,
+                       self.F55_layer, act,
+                       self.F6_layer, act,
+                       self,F7_layer, act,
                        self.output]
 
     def flatten(self, T):

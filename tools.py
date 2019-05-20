@@ -34,12 +34,18 @@ class train_wrapper():
     """
     
     def __init__(self, model, optimizer, train_loader, validate_loader,
-        criterion=nn.CrossEntropyLoss(), device="cpu", test_transform=False):
+        criterion=nn.CrossEntropyLoss(), device="cpu"):
         "Stores the parameters on the class instance for later methods"
         
         for arg in ["model", "optimizer", "train_loader", "validate_loader",
-        "criterion", "device", "test_transform"]:
+        "criterion", "device"]:
             exec("self." + arg + "=" + arg)
+            
+        try:
+            self.transform = validate_loader.dataset.transform
+        except:
+            print("No transform found, test data must be normalised manually")
+            
         return
     
     
@@ -136,9 +142,6 @@ class train_wrapper():
         data set and return both the predicted and actual labels
         """
         
-    # normalise the test data with validates transformation
-        if self.test_transform:
-            test_data = self.test_transform(test_data)
 
         # set the model to not expect a backward pass
         self.model.eval()
@@ -146,7 +149,12 @@ class train_wrapper():
         y_preds = []
         
         # for every test batch
-        for X, in self.test_loader:
+        for X in test_data:
+            
+            # normalise the test data with validates transformation
+            if self.transform:
+                X = self.transform(X)
+
         
             # tell the optimizer not to store gradients
             with torch.no_grad():
@@ -155,11 +163,12 @@ class train_wrapper():
                 X = X.to(self.device)
                 
                 # find the model output with current parameters
-                output = self.model(X)
+                output = self.model(X.view(-1, 1, 28, 28))
                 
                 # find the predictions from this output
+                y_pred = F.log_softmax(output, dim=1)
                 if not prob_output:
-                    y_pred = F.log_softmax(output, dim=1).max(1)[1]
+                    y_pred = y_pred.max(1)[1]
                 
                 # store the predicted and actual outcomes
                 y_preds.append(y_pred.cpu().numpy())

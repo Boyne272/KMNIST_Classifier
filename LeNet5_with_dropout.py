@@ -30,10 +30,7 @@ class LeNet5_with_dropout(nn.Module):
 
         self.F5_layer = nn.Linear(16*5*5, 120, bias=bias)
 
-        self.F55_layer = nn.Dropout()
-
         self.F6_layer = nn.Linear(120,84, bias=bias)
-        self.F7_layer = nn.Dropout()
 
         self.output = nn.Linear(84, 10, bias=bias)
 
@@ -45,14 +42,13 @@ class LeNet5_with_dropout(nn.Module):
                    self.C3_layer, act,
                    self.S4_layer, act, self.flatten,
                    self.F5_layer, act,
-                   self.F55_layer, act,
                    self.F6_layer, act,
                    self.output]
 
         insert_pts = [2, 4, 6, 8, 11, 13]
 
         for d in dropout[::-1]:
-            self.layers.insert(insert_pts[d], nn.dropout())
+            self.layers.insert(insert_pts[d], nn.Dropout())
 
     def flatten(self, T):
         "flatten the image for the fully connected layers"

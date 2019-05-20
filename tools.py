@@ -137,7 +137,7 @@ class train_wrapper():
         """
         
 	# normalise the test data with validates transformation
-	if self.test_transform:
+        if self.test_transform:
 	    test_data = self.test_transform(test_data)
 		
         # set the model to not expect a backward pass

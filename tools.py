@@ -141,7 +141,7 @@ class train_wrapper():
         y_preds = []
         
         # for every test batch
-        for X in self.test_loader:
+        for X, in self.test_loader:
         
             # tell the optimizer not to store gradients
             with torch.no_grad():

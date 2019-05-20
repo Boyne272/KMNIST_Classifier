@@ -4,16 +4,14 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-
-
-# LeNet5
+# LeNet5 with dropout
 class LeNet5(nn.Module):
     """
     The LeNet5 neural network architecture for a 3 channel 32x32
     input as expected from the CIFAR10 dataset
     """
 
-    def __init__(self, bias=True):
+    def __init__(self, bias=True, dropout=[]):
         "setup the neural network"
 
         # initalise
@@ -31,20 +29,26 @@ class LeNet5(nn.Module):
         self.S4_layer = nn.MaxPool2d(kernel_size=2, stride=2)
 
         self.F5_layer = nn.Linear(16*5*5, 120, bias=bias)
+
         self.F6_layer = nn.Linear(120,84, bias=bias)
+
         self.output = nn.Linear(84, 10, bias=bias)
 
         # create the activation function
         act = nn.ReLU()
 
-        # create a list of fucntion order
         self.layers = [self.C1_layer, act,
-                       self.S2_layer, act,
-                       self.C3_layer, act,
-                       self.S4_layer, act, self.flatten,
-                       self.F5_layer, act,
-                       self.F6_layer, act,
-                       self.output]
+                   self.S2_layer, act,
+                   self.C3_layer, act,
+                   self.S4_layer, act, self.flatten,
+                   self.F5_layer, act,
+                   self.F6_layer, act,
+                   self.output]
+
+        insert_pts = [2, 4, 6, 8, 11, 13]
+
+        for d in dropout[::-1]:
+            self.layers.insert(insert_pts[d], nn.Dropout())
 
     def flatten(self, T):
         "flatten the image for the fully connected layers"

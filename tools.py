@@ -1,5 +1,6 @@
 # imports
 from livelossplot import PlotLosses
+from sklearn.metrics import accuracy_score
 import numpy as np
 import random
 import torch
@@ -200,4 +201,10 @@ class train_wrapper():
             torch.save(self.model, path + name)
         
         print("saved to " + path + name)
-            
+    
+
+    def num_model_params(self):
+        n_params = sum([t.detach().numpy().size 
+                        for t in self.model.parameters()])
+        print("Number of model Parameters: ", n_params)
+        return n_params

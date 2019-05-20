@@ -4,6 +4,7 @@
 - spec directory holds the specifications for the project
 - data directory (not seen) this is in the .gitignore to prevent putting data in the repository (too large)
 - models directory holds trained in (full class pickeled by torch.save), be sure to put the model description in the log.txt
+- training directory holds all the training notebooks
 - tools.py holds methods for training a neural network, setting the seeds, etc (used for all different models)
 - models.py holds each different model class used throughout the project
 

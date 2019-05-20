@@ -22,7 +22,7 @@ class LeNet5_CIFAR10(nn.Module):
         stride = 1
 
         # create each layer
-        self.C1_layer = nn.Conv2d(3, 6, padding=0, kernel_size=kernal, stride=stride, bias=bias)
+        self.C1_layer = nn.Conv2d(1, 6, padding=2, kernel_size=kernal, stride=stride, bias=bias)
         self.C3_layer = nn.Conv2d(6, 16, padding=0, kernel_size=kernal, stride=stride, bias=bias)
         
         self.S2_layer = nn.MaxPool2d(kernel_size=2, stride=2)        

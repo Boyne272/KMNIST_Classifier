@@ -102,8 +102,7 @@ class AlexNet_half(nn.Module):
                        self.P2_layer, act,
                        self.C3_layer, act,
                        self.C4_layer, act,
-                       self.C5_layer, act,
-                       self.flatten, 
+                       self.flatten,
                        self.F5_layer, act,
                        self.F6_layer, act,
                        self.output]

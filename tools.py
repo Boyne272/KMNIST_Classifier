@@ -1,6 +1,7 @@
 # imports
 from livelossplot import PlotLosses
 from sklearn.metrics import accuracy_score
+from torch.utils.data import Dataset 
 import numpy as np
 import random
 import torch
@@ -22,7 +23,7 @@ def set_seed(seed):
     torch.backends.cudnn.enabled   = False
 
     return True
-	
+
 # define the training wrapper
 class train_wrapper():
     """
@@ -33,12 +34,18 @@ class train_wrapper():
     """
     
     def __init__(self, model, optimizer, train_loader, validate_loader,
-                 test_loader, criterion=nn.CrossEntropyLoss(), device="cpu"):
+        criterion=nn.CrossEntropyLoss(), device="cpu"):
         "Stores the parameters on the class instance for later methods"
         
         for arg in ["model", "optimizer", "train_loader", "validate_loader",
-                    "test_loader", "criterion", "device"]:
+        "criterion", "device"]:
             exec("self." + arg + "=" + arg)
+            
+        try:
+            self.transform = validate_loader.dataset.transform
+        except:
+            print("No transform found, test data must be normalised manually")
+            
         return
     
     
@@ -129,19 +136,25 @@ class train_wrapper():
         return validation_loss/N_samp, validation_accuracy/N_samp
     
     
-    def evaluate(self):
+    def evaluate(self, test_data, prob_output=True):
         """
         Find the prediction of the current model parameters with the test
         data set and return both the predicted and actual labels
         """
         
+
         # set the model to not expect a backward pass
         self.model.eval()
         
         y_preds = []
         
         # for every test batch
-        for X, in self.test_loader:
+        for X in test_data:
+            
+            # normalise the test data with validates transformation
+            if self.transform:
+                X = self.transform(X)
+
         
             # tell the optimizer not to store gradients
             with torch.no_grad():
@@ -150,10 +163,12 @@ class train_wrapper():
                 X = X.to(self.device)
                 
                 # find the model output with current parameters
-                output = self.model(X)
+                output = self.model(X.view(-1, 1, 28, 28))
                 
                 # find the predictions from this output
-                y_pred = F.log_softmax(output, dim=1).max(1)[1]
+                y_pred = F.log_softmax(output, dim=1)
+                if not prob_output:
+                    y_pred = y_pred.max(1)[1]
                 
                 # store the predicted and actual outcomes
                 y_preds.append(y_pred.cpu().numpy())
@@ -188,17 +203,14 @@ class train_wrapper():
         return
     
     
-    def save_model(self, name, path=F"/content/gdrive/My Drive/models/", only_params=False):
+    def save_model(self, name, path=F"/content/gdrive/My Drive/models/"):
         """
         Pickel either the whole model or its parameter dictionary
         via torch's save methods
         """
         
-        if only_params:
-            torch.save(self.model.state_dict(), path + name)
-        else:
-            torch.save(self.model, path + name)
-        
+        dict = {"model":self.model, "transform":self.transform}
+        torch.save(dict, path + name)
         print("saved to " + path + name)
     
 
@@ -223,4 +235,28 @@ def save_csv(data, file, path='/', header="Id,Category"):
     f.close()
     print("successfully saved in " + path + file + ".csv")
     return 
+	
+
+class CustomImageTensorDataset(Dataset):
+    def __init__(self, data, targets, transform=None):
+        """
+        Args:
+            data (Tensor): A tensor containing the data e.g. images
+            targets (Tensor): A tensor containing all the labels
+            transform (callable, optional): Optional transform to be applied
+                on a sample.
+        """
+        self.data = data
+        self.targets = targets
+        self.transform = transform
+
+    def __len__(self):
+        return len(self.data)
+
+    def __getitem__(self, idx):
+        sample, label = self.data[idx], self.targets[idx]
+        if self.transform:
+            sample = self.transform(sample)
+
+        return sample, label
 

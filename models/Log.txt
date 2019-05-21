@@ -1,22 +1,44 @@
 LeNet5 basic
-	- default hyper-params    98.0%
+	- approx 5 min
+	- default hyper-params
+	- max validation accuracy 98.0%
 
 LeNet5 dropout
-	- default hyper=params    98.2%
+	- approx _ min
+	- default hyper-params
 	- add dropout to last linear layer
+	- max validation accuracy 98.2%
 
 LeNet5 Batch Norm and dropout
+	- approx _ min
 	- default hyper-params
 	- add dropout to last linear layer 
 	- add Batch Norm to first two conv layers  97.9%
 
 LeNet5 cropped only data augmentation
+	- approx 20 mins
 	- default hyper-params
 	- croped to 24x24 then padded back to 28x28
 	- max validation accuracy 98.6%
 
 LeNet5 cropped & rotate data augmentation
+	- approx 20 min
 	- default hyper-params
 	- croped to 24x24 then padded back to 28x28
 	- then image is randomly rotated by 10 degrees
 	- max validation accuracy 98.8%
+
+AlexNet_01
+	- approx 20 mins
+	- defualt hyper-parms
+	- max validation accuracy 98.5%
+
+AlexNet_01 data augmentation
+	- approx _ min
+	- data cropped and rotated same as LeNet5 cropped & rotate
+	- max validation accuracy
+
+AlexNet_01 dropout
+	- approx _ min
+	- first fully connected two layers have dropout 0.5
+	- max validation accuracy

@@ -203,17 +203,14 @@ class train_wrapper():
         return
     
     
-    def save_model(self, name, path=F"/content/gdrive/My Drive/models/", only_params=False):
+    def save_model(self, name, path=F"/content/gdrive/My Drive/models/"):
         """
         Pickel either the whole model or its parameter dictionary
         via torch's save methods
         """
         
-        if only_params:
-            torch.save(self.model.state_dict(), path + name)
-        else:
-            torch.save(self.model, path + name)
-        
+        dict = {"model":self.model, "transform":self.transform}
+        torch.save(dict, path + name)
         print("saved to " + path + name)
     
 

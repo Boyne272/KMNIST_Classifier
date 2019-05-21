@@ -1,6 +1,15 @@
 LeNet5 basic
 	- default hyper-params    98.0%
 
+LeNet5 dropout
+	- default hyper=params    98.2%
+	- add dropout to last linear layer
+
+LeNet5 Batch Norm and dropout
+	- default hyper-params
+	- add dropout to last linear layer 
+	- add Batch Norm to first two conv layers  97.9%
+
 LeNet5 cropped only data augmentation
 	- default hyper-params
 	- croped to 24x24 then padded back to 28x28

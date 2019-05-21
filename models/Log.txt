@@ -34,7 +34,7 @@ LeNet5 cropped & rotate & brightness & contrast data augmentation
 	- croped to 24x24 then padded back to 28x28
 	- then image is randomly rotated by 10 degrees
 	- then brightness and contrast of image is randomly adjusted by 0.3 to 1.7
-	- max validation accuracy 98.5%
+	- max validation accuracy 98.7%
 
 AlexNet_01
 	- approx 20 mins
@@ -53,8 +53,8 @@ AlexNet_01 dropout and cropped
 	- max validation accuracy 99.0%
 	- max trainning accuracy 99.4%
 
-	AlexNet_01 dropout
-		- approx 40 min and 30 epochs
-		- first fully connected two layers have dropout 0.5
-		- max validation accuracy 99.2%
-		- max trainning accuracy 99.0%
+AlexNet_01 dropout
+	- approx 40 min and 30 epochs
+	- first fully connected two layers have dropout 0.5
+	- max validation accuracy 99.2%
+	- max trainning accuracy 99.0%

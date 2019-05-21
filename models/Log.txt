@@ -58,3 +58,9 @@ AlexNet_01 dropout
 	- first fully connected two layers have dropout 0.5
 	- max validation accuracy 99.2%
 	- max trainning accuracy 99.0%
+	
+AlexNet_01 Hevay Data Augmentation
+	- approx __ min and __ epochs
+	- applied several data augmentations 
+	- max validation accuracy 
+	- max trainning accuracy 

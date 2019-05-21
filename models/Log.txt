@@ -28,19 +28,39 @@ LeNet5 cropped & rotate data augmentation
 	- then image is randomly rotated by 10 degrees
 	- max validation accuracy 98.8%
 
+LeNet5 cropped & rotate & brightness & contrast data augmentation
+	- approx 25 min
+	- default hyper-params
+	- croped to 24x24 then padded back to 28x28
+	- then image is randomly rotated by 10 degrees
+	- then brightness and contrast of image is randomly adjusted by 0.3 to 1.7
+	- max validation accuracy 98.7%
+
 AlexNet_01
 	- approx 20 mins
 	- defualt hyper-parms
 	- max validation accuracy 98.5%
 
 AlexNet_01 data augmentation
-	- approx 40 min and 56 epochs to reach max validation accuracy
+	- approx 60 min and 56 epochs to reach max validation accuracy
 	- data cropped and rotated same as LeNet5 cropped & rotate
 	- max validation accuracy 99.3%
 
 AlexNet_01 dropout and cropped
-	- approx 20 min and 30 epochs
+	- approx 40 min and 30 epochs
 	- first fully connected two layers have dropout 0.5
 	- data cropped same as LeNet5 cropped & rotate
 	- max validation accuracy 99.0%
 	- max trainning accuracy 99.4%
+
+AlexNet_01 dropout
+	- approx 40 min and 30 epochs
+	- first fully connected two layers have dropout 0.5
+	- max validation accuracy 99.2%
+	- max trainning accuracy 99.0%
+	
+AlexNet_01 Hevay Data Augmentation
+	- approx __ min and __ epochs
+	- applied several data augmentations 
+	- max validation accuracy 
+	- max trainning accuracy 

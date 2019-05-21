@@ -220,6 +220,11 @@ class train_wrapper():
         print("Number of model Parameters: ", n_params)
         return n_params
 
+    def max_acc_epoch(self):
+        max_acc = self.liveloss.metrics_extrema['val_accuracy']['max']
+        for log in self.liveloss.logs:
+            if log["val_accuracy"] == max_acc:
+            return log["_i"]
 
 
 def save_csv(data, file, path='/', header="Id,Category"):
@@ -235,7 +240,7 @@ def save_csv(data, file, path='/', header="Id,Category"):
     f.close()
     print("successfully saved in " + path + file + ".csv")
     return 
-	
+    
 
 class CustomImageTensorDataset(Dataset):
     def __init__(self, data, targets, transform=None):

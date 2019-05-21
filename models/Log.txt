@@ -1,11 +1,11 @@
 LeNet5 basic
-	- default hyper-params
-	
+	- default hyper-params    98.0%
+
 LeNet5 cropped only data augmentation
 	- default hyper-params
 	- croped to 24x24 then padded back to 28x28
 	- max validation accuracy 98.6%
-	
+
 LeNet5 cropped & rotate data augmentation
 	- default hyper-params
 	- croped to 24x24 then padded back to 28x28

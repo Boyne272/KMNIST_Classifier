@@ -45,6 +45,9 @@ class train_wrapper():
             self.transform = validate_loader.dataset.transform
         except:
             print("No transform found, test data must be normalised manually")
+        
+        # store the liveloss as it holds all our logs, useful for later
+        self.liveloss = PlotLosses()
             
         return
     
@@ -182,9 +185,6 @@ class train_wrapper():
         Do a live plot of the training accuracy and loss as the model is trained
         """
         
-        # store the liveloss as it holds all our logs, useful for later
-        self.liveloss = PlotLosses()
-        
         for epoch in range(epochs):
             logs = {}
             train_loss, train_accuracy = self.train()
@@ -224,7 +224,7 @@ class train_wrapper():
         max_acc = self.liveloss.metrics_extrema['val_accuracy']['max']
         for log in self.liveloss.logs:
             if log["val_accuracy"] == max_acc:
-            return log["_i"]
+                return log["_i"]
 
 def save_csv(data, file, path='/', header="Id,Category"):
     

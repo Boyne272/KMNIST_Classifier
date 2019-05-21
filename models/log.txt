@@ -1,4 +1,0 @@
-# Model Log
-Store a brief description of each log here
-
-## LeNet5

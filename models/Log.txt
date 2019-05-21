@@ -42,13 +42,19 @@ AlexNet_01
 	- max validation accuracy 98.5%
 
 AlexNet_01 data augmentation
-	- approx 40 min and 56 epochs to reach max validation accuracy
+	- approx 60 min and 56 epochs to reach max validation accuracy
 	- data cropped and rotated same as LeNet5 cropped & rotate
 	- max validation accuracy 99.3%
 
 AlexNet_01 dropout and cropped
-	- approx 20 min and 30 epochs
+	- approx 40 min and 30 epochs
 	- first fully connected two layers have dropout 0.5
 	- data cropped same as LeNet5 cropped & rotate
 	- max validation accuracy 99.0%
 	- max trainning accuracy 99.4%
+
+	AlexNet_01 dropout
+		- approx 40 min and 30 epochs
+		- first fully connected two layers have dropout 0.5
+		- max validation accuracy 99.2%
+		- max trainning accuracy 99.0%

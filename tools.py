@@ -226,7 +226,6 @@ class train_wrapper():
             if log["val_accuracy"] == max_acc:
             return log["_i"]
 
-
 def save_csv(data, file, path='/', header="Id,Category"):
     
     f = open(path + file + ".csv", 'w')

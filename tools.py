@@ -207,7 +207,7 @@ class train_wrapper():
             if self.keep_best:
                 if train_accuracy.item() > self.max_acc and self.epoch > self.keep_best:
                     self.max_acc = train_accuracy.item()
-                    self.best_params_dict = model.state_dict()
+                    self.best_params_dict = self.model.state_dict()
             
             self.liveloss.update(logs)
             self.liveloss.draw()

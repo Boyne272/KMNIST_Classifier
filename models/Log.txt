@@ -52,7 +52,7 @@ LeNet5 cropped & rotate & brightness & contrast data augmentation
 	- then brightness and contrast of image is randomly adjusted by 0.3 to 1.7
 	- max validation accuracy 98.7%
 
-AlexNet_01 data augmentation
+AlexNet_01 data augmentation (CropRot)
 	- approx 60 min and 56 epochs to reach max validation accuracy
 	- data cropped and rotated same as LeNet5 cropped & rotate
 	- max validation accuracy 99.3%
@@ -83,14 +83,30 @@ AlexNet_01 Hevay Data Augmentation
 AlexNet_01 Data Augmentation with Dropout and Batch Norm
 	- total 200 epoch (saved at 5, 50, 100, 150, 200)
 	- 45 min per 50 epochs
-	- applied Crop(24,24) and Rotation(10) data augmentations
+	- applied Crop(24,24) and increased Rotation(15) data augmentations
 	- also had dropout on first two full connected layers
+	  (after realised that this is an error and we actually dropped out before the first and second
+	   fully connected layers)
 	- and batch normalisation after the first two convolutional layers
 	  (these are same as real alex net)
 	- max validation accuracy 99.7%
 	  (in the first 100 epochs, though all save points happened to be ~99.6%)
 	- max trainning accuracy 98.8%
+	
 
 
 -------------------- Wed -------------------
 
+
+AlexNet_01 Data Augmentation with Dropout and Batch Norm
+	- total __ epoch (saved at ___)
+	-  min per epochs
+	- applied Crop(24,24) and increased Rotation(15) data augmentations
+	- also had dropout on first two full connected layers (correct this time)
+	- and batch normalisation after the first two convolutional layers
+	  (these are same as real alex net)
+	- changed train/validation set to the 2nd (so as to differ from previous run)
+	- max validation accuracy 
+	- max trainning accuracy 
+	
+	

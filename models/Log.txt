@@ -52,7 +52,7 @@ LeNet5 cropped & rotate & brightness & contrast data augmentation
 	- then brightness and contrast of image is randomly adjusted by 0.3 to 1.7
 	- max validation accuracy 98.7%
 
-AlexNet_01 data augmentation
+AlexNet_01 data augmentation (CropRot)
 	- approx 60 min and 56 epochs to reach max validation accuracy
 	- data cropped and rotated same as LeNet5 cropped & rotate
 	- max validation accuracy 99.3%

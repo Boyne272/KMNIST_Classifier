@@ -35,11 +35,11 @@ class train_wrapper():
     """
     
     def __init__(self, model, optimizer, train_loader, validate_loader,
-        criterion=nn.CrossEntropyLoss(), device="cpu"):
+        criterion=nn.CrossEntropyLoss(), device="cpu", keep_best=0):
         "Stores the parameters on the class instance for later methods"
         
         for arg in ["model", "optimizer", "train_loader", "validate_loader",
-        "criterion", "device"]:
+        "criterion", "device", "keep_best"]:
             exec("self." + arg + "=" + arg)
             
         try:
@@ -49,6 +49,12 @@ class train_wrapper():
         
         # store the liveloss as it holds all our logs, useful for later
         self.liveloss = PlotLosses()
+        # store the best model params
+        self.best_params_dict = {}
+        # store the current epoch between training batches
+        self.epoch = 0
+        # for keeping the best model params
+        self.max_acc=0.
             
         return
     
@@ -186,7 +192,7 @@ class train_wrapper():
         Do a live plot of the training accuracy and loss as the model is trained
         """
         
-        for epoch in range(epochs):
+        for _ in range(epochs):
             logs = {}
             train_loss, train_accuracy = self.train()
 
@@ -197,8 +203,15 @@ class train_wrapper():
             logs['val_' + 'log loss'] = validation_loss.item()
             logs['val_' + 'accuracy'] = validation_accuracy.item()
 
+            # if we are after the 
+            if self.keep_best:
+                if train_accuracy.item() > self.max_acc and self.epoch > self.keep_best:
+                    self.max_acc = train_accuracy.item()
+                    self.best_params_dict = model.state_dict()
+            
             self.liveloss.update(logs)
             self.liveloss.draw()
+            self.epoch += 1
             
         print("Training Finished")
         return
@@ -250,8 +263,6 @@ class train_wrapper():
         y_preds = np.array(y_preds).flatten()
         ys = np.array(ys).flatten()
         
-        print(y_preds.shape, ys.shape, y_pred.size(), y.size())
-        
         return ConfusionMatrix(actual_vector=ys, predict_vector=y_preds)
         
         
@@ -293,3 +304,4 @@ class CustomImageTensorDataset(Dataset):
             sample = self.transform(sample)
 
         return sample, label
+

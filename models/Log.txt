@@ -1,7 +1,11 @@
+
+-------------------- Mon -------------------
+
 LeNet5 basic
 	- approx 5 min
 	- default hyper-params
 	- max validation accuracy 98.0%
+
 
 LeNet5 dropout
 	- approx _ min
@@ -9,11 +13,21 @@ LeNet5 dropout
 	- add dropout to last linear layer
 	- max validation accuracy 98.2%
 
+
 LeNet5 Batch Norm and dropout
 	- approx _ min
 	- default hyper-params
 	- add dropout to last linear layer
 	- add Batch Norm to first two conv layers  97.9%
+
+AlexNet_01
+	- approx 20 mins
+	- defualt hyper-parms
+	- max validation accuracy 98.5%
+
+
+-------------------- Tue -------------------
+
 
 LeNet5 cropped only data augmentation
 	- approx 20 mins
@@ -21,12 +35,14 @@ LeNet5 cropped only data augmentation
 	- croped to 24x24 then padded back to 28x28
 	- max validation accuracy 98.6%
 
+
 LeNet5 cropped & rotate data augmentation
 	- approx 20 min
 	- default hyper-params
 	- croped to 24x24 then padded back to 28x28
 	- then image is randomly rotated by 10 degrees
 	- max validation accuracy 98.8%
+
 
 LeNet5 cropped & rotate & brightness & contrast data augmentation
 	- approx 25 min
@@ -36,15 +52,11 @@ LeNet5 cropped & rotate & brightness & contrast data augmentation
 	- then brightness and contrast of image is randomly adjusted by 0.3 to 1.7
 	- max validation accuracy 98.7%
 
-AlexNet_01
-	- approx 20 mins
-	- defualt hyper-parms
-	- max validation accuracy 98.5%
-
 AlexNet_01 data augmentation
 	- approx 60 min and 56 epochs to reach max validation accuracy
 	- data cropped and rotated same as LeNet5 cropped & rotate
 	- max validation accuracy 99.3%
+
 
 AlexNet_01 dropout and cropped
 	- approx 40 min and 30 epochs
@@ -53,14 +65,32 @@ AlexNet_01 dropout and cropped
 	- max validation accuracy 99.0%
 	- max trainning accuracy 99.4%
 
+
 AlexNet_01 dropout
 	- approx 40 min and 30 epochs
 	- first fully connected two layers have dropout 0.5
 	- max validation accuracy 99.2%
 	- max trainning accuracy 99.0%
+
 	
 AlexNet_01 Hevay Data Augmentation
-	- approx __ min and __ epochs
+	- approx 1+hr and up to 100 epochs
 	- applied several data augmentations 
-	- max validation accuracy 
-	- max trainning accuracy 
+	- max validation accuracy 99.3%
+	- max trainning accuracy _____________
+
+
+AlexNet_01 Data Augmentation with Dropout and Batch Norm
+	- total 200 epoch (saved at 5, 50, 100, 150, 200)
+	- 45 min per 50 epochs
+	- applied Crop(24,24) and Rotation(10) data augmentations
+	- also had dropout on first two full connected layers
+	- and batch normalisation after the first two convolutional layers
+	  (these are same as real alex net)
+	- max validation accuracy 99.7%
+	  (in the first 100 epochs, though all save points happened to be ~99.6%)
+	- max trainning accuracy 98.8%
+
+
+-------------------- Wed -------------------
+

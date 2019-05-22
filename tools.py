@@ -2,6 +2,7 @@
 from livelossplot import PlotLosses
 from sklearn.metrics import accuracy_score
 from torch.utils.data import Dataset 
+from pycm import ConfusionMatrix
 import numpy as np
 import random
 import torch
@@ -209,23 +210,52 @@ class train_wrapper():
         via torch's save methods
         """
         
-        dict = {"model":self.model, "transform":self.transform}
+        dict = {"model":self.model, "transform":self.transform,
+                "Liveloss":self.liveloss}
         torch.save(dict, path + name)
         print("saved to " + path + name)
     
 
     def num_model_params(self):
-        n_params = sum([t.detach().numpy().size 
+        n_params = sum([t.cpu().detach().numpy().size 
                         for t in self.model.parameters()])
         print("Number of model Parameters: ", n_params)
         return n_params
+
 
     def max_acc_epoch(self):
         max_acc = self.liveloss.metrics_extrema['val_accuracy']['max']
         for log in self.liveloss.logs:
             if log["val_accuracy"] == max_acc:
-                return log["_i"]
+                return log["_i"]#
 
+            
+    def confusion_matrix(self):
+        
+        y_preds, ys = [], []
+        
+        # same code as validate
+        self.model.eval()
+        
+        for X, y in self.validate_loader:
+            with torch.no_grad():
+                X, y = X.to(self.device), y.to(self.device)
+                output = self.model(X)
+                y_pred = F.log_softmax(output, dim=1)
+                y_pred = y_pred.max(1)[1]
+                
+                y_preds.append(y_pred.cpu().numpy())
+                ys.append(y.cpu().numpy())
+        
+        y_preds = np.array(y_preds).flatten()
+        ys = np.array(ys).flatten()
+        
+        print(y_preds.shape, ys.shape, y_pred.size(), y.size())
+        
+        return ConfusionMatrix(actual_vector=ys, predict_vector=y_preds)
+        
+        
+            
 def save_csv(data, file, path='/', header="Id,Category"):
     
     f = open(path + file + ".csv", 'w')
@@ -263,4 +293,3 @@ class CustomImageTensorDataset(Dataset):
             sample = self.transform(sample)
 
         return sample, label
-

@@ -130,3 +130,5 @@ AlexNet_01 DAB Data Inlation
 	- No Improvement again though still valid
 	- Max acc ~99.5%
 	- Max train ~99.0%
+	
+	

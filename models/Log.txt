@@ -99,14 +99,36 @@ AlexNet_01 Data Augmentation with Dropout and Batch Norm
 
 
 AlexNet_01 Data Augmentation with Dropout and Batch Norm
-	- total __ epoch (saved at ___)
+	- total 150 epoch (saved at ~2hr)
 	-  min per epochs
 	- applied Crop(24,24) and increased Rotation(15) data augmentations
 	- also had dropout on first two full connected layers (correct this time)
 	- and batch normalisation after the first two convolutional layers
 	  (these are same as real alex net)
 	- changed train/validation set to the 2nd (so as to differ from previous run)
-	- max validation accuracy 
-	- max trainning accuracy 
+	- max validation accuracy 99.6%
+	- max trainning accuracy 99.7%
+	- test accuracy 98.87%
+	
+	
+AlexNet_01 Data Augmentation with Dropout and Batch Norm
+	- total 100 epoch
+	- approx 1 hr
+	- applied Crop(24,24) and increased Rotation(15) data augmentations
+	- also had dropout on first two full connected layers (back to Mattias mistake version)
+	- and batch normalisation after the first two convolutional layers
+	  (these are same as real alex net)
+	- changed train/validation set to the 2nd (so as to differ from previous run)
+	- No Improvement
+	
+	
+AlexNet_01 DAB Data Inlation
+	- total 100 epoch
+	- approx 1.5hr
+	- DAB correctly implemented low aug
+	- train/validation set to the 2nd
+	- No Improvement again though still valid
+	- Max acc ~99.5%
+	- Max train ~99.0%
 	
 	

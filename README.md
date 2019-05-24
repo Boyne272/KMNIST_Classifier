@@ -12,7 +12,7 @@
 ## Notes to the Examiners
 Our submissions were both formed of model ensembles, namely combinations of AlexNet7 and AlexNet5 networks each trained with two different optimisers (Adam and SGD). Either all 4 were combined (Ensemble_4) or just the AlexNet7 networks (Ensemble_2). The notebooks show how the data was loaded, pre-processed and augmented as well as the structures of each network and how they were trained (with the use of tools.py). The Ensemble notebook shows how the models were combined to create our final output.
 
-Over all we enjoyed the challenge though we possibly worked a little too hard on it and were gutted by coming second by such a close margin. Here is our last appropirate meme:
+Over all we enjoyed the challenge though we possibly worked a little too hard on it. Here is our last appropirate meme:
 
 <a href="https://imgflip.com/i/31qum1"><img src="https://i.imgflip.com/31qum1.jpg" title="table flip meme" alt="table flip mem"/></a>
 

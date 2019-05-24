@@ -3,8 +3,9 @@
 ## Repository Structure
 - spec/ - the project decription files as well as some admin bits
 - data/ - the given Kuzushiji-MNIST data files
-- models/ - contains all the models we trained, there predictions and there comparisons. Naming conventions are a bit all-over the place but this is just a working space
-- training/ - notebooks which define and train all the different models we tested. Is quite a messy but is mostly legacy work with many of the networks not performing well enough to be submitted
+- models/ - contains all the models we trained, there predictions and there comparisons. Naming conventions are a bit all-over the place as this is a working space
+- training/ - notebooks which define and train all the different models we tested. Notebooks are notfully commented here as this is a working directory
+- report/ - has the report, figures and presentation documents
 - tools.py - methods for training a neural network, inspecing it as well as a few other commonly used functions such as setting the seeds or creating the output csv files wanted
 - AlexNet5.ipynb, AlexNet7.ipynb, Ensemble.ipynb - notebooks used to train and combine the final submission network ensemble (see notes below)
 - Ensemble_2.csv, Ensemble_4.csv - final test submissions (submitted under the names "AlexNeyt7_combo (1).csv" and "ensemble (1).csv" respectively)
